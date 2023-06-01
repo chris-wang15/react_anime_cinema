@@ -1,6 +1,7 @@
 import {AnimatePresence} from "framer-motion";
 import {Route, Routes} from "react-router-dom";
 import Header from "./components/Header.tsx";
+import UploadPage from "./components/UploadPage.tsx";
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
                           <div>About Us</div>
                       }/>
                       <Route path="/upload" element={
-                          <div>Upload videos</div>
+                          <UploadPage/>
                       }/>
                   </Routes>
               </main>
