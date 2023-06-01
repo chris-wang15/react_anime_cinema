@@ -8,17 +8,13 @@ import {MdClose, MdCloudUpload, MdDelete, MdTitle} from "react-icons/md";
 import {LuSubtitles} from "react-icons/lu";
 import Loader from "./Loader.tsx";
 import {GrAdd} from "react-icons/gr";
-import {mockAnimeSeriesList} from "../utils/mockData.tsx";
 import {FiMinus, FiPlus} from "react-icons/fi";
+import {useAnimeUpdateContext} from "../context/MainContextHook.tsx";
 
 const UploadPage = () => {
     const hasLogin = true;
     if (!hasLogin) {
         return <UnLoginDescription/>
-    }
-
-    const onUploadSuccess = () => {
-        // update Ui here
     }
 
     return (
@@ -59,17 +55,7 @@ const UploadPanel = () => {
     const [alertStatus, setAlertStatus] = useState<'danger' | 'success'>('danger');
     const [isLoading, setIsLoading] = useState(false)
 
-    // const [{ foodItems }, dispatch] = useStateValue();
-    // const fetchData = async () => {
-    //     await getAllFoodItems().then(data => {
-    //         dispatch(
-    //             {
-    //                 type: actionType.SET_FOOD_ITEMS,
-    //                 foodItems: data
-    //             }
-    //         )
-    //     })
-    // }
+    const {updateAnime} = useAnimeUpdateContext();
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const onProgressChanged = (_: number) => {
@@ -138,6 +124,7 @@ const UploadPanel = () => {
                     anime: animeList,
                 }
                 saveAnimeSeries(data).then(() => {
+                    updateAnime()
                     setFields(true)
                     setMessage('Data uploaded successfully')
                     setAlertStatus('success')
@@ -399,7 +386,7 @@ const UnLoginDescription = () => {
 }
 
 const UploadedFiles = () => {
-    const files = mockAnimeSeriesList
+    const {animeSeriesList} = useAnimeUpdateContext();
     return (
         <section className="w-full h-full flex flex-col gap-2 p-2">
             {/* section title */}
@@ -407,7 +394,7 @@ const UploadedFiles = () => {
                 Uploaded Files:
             </div>
             {/* animeItem */}
-            {files.map(file => (
+            {animeSeriesList.map(file => (
                 <div className="w-full flex flex-col justify-start ml-4 gap-2">
                     <UploadedFileContainer animeSeries={file}/>
                 </div>
