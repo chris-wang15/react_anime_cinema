@@ -7,7 +7,7 @@ export const saveAnimeSeries = async (data: AnimeSeries) => {
     await setDoc(
         doc(firestore,
             'anime_series',
-            `${Date.now()}`,
+            `${data.id}`,
         ),
         data,
         {merge: true}

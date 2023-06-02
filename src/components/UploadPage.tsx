@@ -22,7 +22,7 @@ const UploadPage = () => {
             {/* grid with 2 column */}
             <article
                 className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full"
-                id="uploading_section">
+                id="upload_page">
                 {/* upload panel */}
                 <div
                     className="py-2 flex-1 flex flex-col items-center justify-center"
@@ -115,7 +115,7 @@ const UploadPanel = () => {
                 }, 4000)
             } else {
                 const data: AnimeSeries = {
-                    id: Date.now(),
+                    id: `${Date.now()}`,
                     title: title,
                     imageURL: imageAsset,
                     description: description ?? "No description",

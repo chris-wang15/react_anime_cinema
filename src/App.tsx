@@ -5,6 +5,7 @@ import UploadPage from "./components/UploadPage.tsx";
 import {useAnimeUpdateContext} from "./context/MainContextHook.tsx";
 import {useEffect} from "react";
 import DetailPage from "./components/DetailPage.tsx";
+import MainContainer from "./components/MainContainer.tsx";
 
 function App() {
     const {updateAnime} = useAnimeUpdateContext();
@@ -17,14 +18,14 @@ function App() {
             <div className="w-screen h-auto flex flex-col bg-primary">
                 <Header/>
 
-                <main className="mt-20 px-16 py-4 w-full">
+                <main className="h-full mt-20 px-16 py-4 w-full">
                     <Routes>
                         {/* http://localhost:XXXX */}
                         <Route path="/*" element={
-                            <div>MainContainer</div>
+                            <MainContainer/>
                         }/>
                         {/* http://localhost:XXXX/menu */}
-                        <Route path="/menu" element={
+                        <Route path="/videos" element={
                             <div>Menu Page Sort Videos</div>
                         }/>
                         <Route path="/about_us" element={
@@ -33,7 +34,8 @@ function App() {
                         <Route path="/upload" element={
                             <UploadPage/>
                         }/>
-                        <Route path="/detail/:id" element={
+                        {/* http://localhost:XXXX/1685625705106/0 */}
+                        <Route path="/detail/:id/:selectId" element={
                             <DetailPage/>
                         }/>
                     </Routes>

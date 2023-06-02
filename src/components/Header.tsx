@@ -42,7 +42,7 @@ const Header = () => {
                     </li>
                     <li className={menuItemTextClass}>
                         <Link to={"/videos"}>
-                            Video
+                            Anime
                         </Link>
                     </li>
                     <li className={menuItemTextClass}>

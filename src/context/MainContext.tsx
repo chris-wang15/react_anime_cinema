@@ -55,6 +55,8 @@ const useMainContext = (initState: StateType) => {
 
     const updateAnime = useCallback(async () => {
         getAllAnimeSeries().then(data => {
+            const test = data as AnimeSeries[]
+            console.log("updateAnime callback: " + test[1].id)
             dispatch(
                 {
                     type: REDUCER_ACTION_TYPE.UPDATE_ANIME,

@@ -17,6 +17,9 @@ const DetailPage = () => {
 
     const params = useParams()
     const animeSeriesId = params.id ?? ""
+    const initSelectedId = parseInt(params.selectId ?? "0")
+    // TODO mock test
+    console.log("animeSeriesId: " + animeSeriesId)
     if (!animeSeriesId) {
         setPageLoadingState('notFound')
     }
@@ -28,7 +31,11 @@ const DetailPage = () => {
                     setPageLoadingState('notFound')
                 } else {
                     setAnimeSeries(fetchedAnimeSeries)
-                    setSelectedEpisode(fetchedAnimeSeries.anime[0])
+                    if (initSelectedId < fetchedAnimeSeries.anime.length) {
+                        setSelectedEpisode(fetchedAnimeSeries.anime[initSelectedId])
+                    } else {
+                        setSelectedEpisode(fetchedAnimeSeries.anime[0])
+                    }
                     setPageLoadingState('success')
                 }
             }
@@ -52,22 +59,22 @@ const DetailPage = () => {
                 <img src={animeSeries.imageURL} className="w-[200px] h-[250px] flex object-fill p-2 " alt="poster"/>
                 {/*  infos  */}
                 <div className="w-full min-w-[200px] h-[250px] flex flex-col p-2 justify-start items-start">
-                    <text
+                    <div
                         className="text-xl font-semibold text-textColor my-4">
                         {animeSeries.title}
-                    </text>
-                    <text
+                    </div>
+                    <div
                         className="text-base text-textColor my-2 md:my-1">
                         {`(${animeSeries.time})`}
-                    </text>
-                    <text
+                    </div>
+                    <div
                         className="text-base text-textColor my-2 md:my-1">
                         {animeSeries.category}
-                    </text>
-                    <text
+                    </div>
+                    <div
                         className="text-sm md:text-base text-textColor my-1">
                         {`${animeSeries.anime.length} episodes in total`}
-                    </text>
+                    </div>
                     <div
                         className="invisible md:visible text-sm text-textColor text-ellipsis overflow-hidden">
                         {animeSeries.description}
@@ -94,7 +101,7 @@ const DetailPage = () => {
             {/* separator */}
             <div className="w-[90%] border-b border-gray-300 my-2"/>
             {/* episode selector */}
-            <div className="w-[90%] flex items-center justify-start lg:justify-center gap-8 py-6
+            <div className="w-[90%] flex items-start justify-start gap-8 py-6
                 overflow-x-scroll">
                 {animeSeries.anime.map((animeItem, index) => (
                     <motion.div className={` group ${selectedEpisode?.id == animeItem.id ? 'bg-cartNumBg' : 'bg-card'}
