@@ -4,6 +4,7 @@ import Header from "./components/Header.tsx";
 import UploadPage from "./components/UploadPage.tsx";
 import {useAnimeUpdateContext} from "./context/MainContextHook.tsx";
 import {useEffect} from "react";
+import DetailPage from "./components/DetailPage.tsx";
 
 function App() {
     const {updateAnime} = useAnimeUpdateContext();
@@ -31,6 +32,9 @@ function App() {
                         }/>
                         <Route path="/upload" element={
                             <UploadPage/>
+                        }/>
+                        <Route path="/detail/:id" element={
+                            <DetailPage/>
                         }/>
                     </Routes>
                 </main>

@@ -34,15 +34,15 @@ const Header = () => {
                     <p className="text-headingColor text-sm md:text-xl font-bold white">Anime Cinema</p>
                 </Link>
                 {/*menu items*/}
-                <ul className="flex items-center gap-2 lg:gap-16 md:gap-8 ml-auto">
+                <ul className="flex items-center gap-3 lg:gap-16 md:gap-8 ml-auto">
                     <li className={menuItemTextClass}>
                         <Link to={"/"}>
                             Home
                         </Link>
                     </li>
                     <li className={menuItemTextClass}>
-                        <Link to={"/menu"}>
-                            Menu
+                        <Link to={"/videos"}>
+                            Video
                         </Link>
                     </li>
                     <li className={menuItemTextClass}>

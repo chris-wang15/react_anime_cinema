@@ -395,7 +395,8 @@ const UploadedFiles = () => {
             </div>
             {/* animeItem */}
             {animeSeriesList.map(file => (
-                <div className="w-full flex flex-col justify-start ml-4 gap-2">
+                <div className="w-full flex flex-col justify-start ml-4 gap-2"
+                     key={`uploadedFile-${file.id}`}>
                     <UploadedFileContainer animeSeries={file}/>
                 </div>
             ))}

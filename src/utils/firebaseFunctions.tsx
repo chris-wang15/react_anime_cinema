@@ -1,4 +1,4 @@
-import {doc, setDoc, getDocs, query, collection, orderBy} from "firebase/firestore"
+import {doc, setDoc, getDocs,getDoc, query, collection, orderBy} from "firebase/firestore"
 import {firestore} from "../firebase.config.tsx";
 import {AnimeSeries} from "./dataType.tsx";
 
@@ -23,4 +23,21 @@ export const getAllAnimeSeries = async () => {
     )
 
     return items.docs.map((doc) => doc.data())
+}
+
+export const getAnimeSeriesById = async (id: string) => {
+    const item = await getDoc(
+        doc(firestore,
+            'anime_series',
+            id,
+        )
+    )
+    if (item.exists()) {
+        const data = item.data()
+        console.log(`get item: ${data}`)
+        return data ?? null
+    } else {
+        console.log(`no item found`)
+        return null
+    }
 }
