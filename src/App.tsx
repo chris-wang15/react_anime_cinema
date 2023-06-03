@@ -6,6 +6,8 @@ import {useAnimeUpdateContext} from "./context/MainContextHook.tsx";
 import {useEffect} from "react";
 import DetailPage from "./components/DetailPage.tsx";
 import MainContainer from "./components/MainContainer.tsx";
+import SortPage from "./components/SortPage.tsx";
+import AboutUsPage from "./components/AboutUsPage.tsx";
 
 function App() {
     const {updateAnime} = useAnimeUpdateContext();
@@ -26,10 +28,10 @@ function App() {
                         }/>
                         {/* http://localhost:XXXX/menu */}
                         <Route path="/videos" element={
-                            <div>Menu Page Sort Videos</div>
+                            <SortPage/>
                         }/>
                         <Route path="/about_us" element={
-                            <div>About Us</div>
+                            <AboutUsPage/>
                         }/>
                         <Route path="/upload" element={
                             <UploadPage/>

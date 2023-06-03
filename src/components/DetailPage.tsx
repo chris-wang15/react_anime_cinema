@@ -18,8 +18,6 @@ const DetailPage = () => {
     const params = useParams()
     const animeSeriesId = params.id ?? ""
     const initSelectedId = parseInt(params.selectId ?? "0")
-    // TODO mock test
-    console.log("animeSeriesId: " + animeSeriesId)
     if (!animeSeriesId) {
         setPageLoadingState('notFound')
     }
@@ -118,7 +116,6 @@ const DetailPage = () => {
                         </p>
                     </motion.div>
                 ))}
-
             </div>
         </section>
     );

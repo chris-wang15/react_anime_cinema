@@ -3,6 +3,7 @@ import {getFirestore} from 'firebase/firestore'
 import {getStorage} from 'firebase/storage'
 
 // TODO fix hardcode
+// This not work: console.log("App: " + import.meta.env.REACT_APP_FIREBASE_API_KEY)
 const firebaseConfig = {
     apiKey: "AIzaSyAFvNoZJ7k4_NHoRSec-uk_6wCkcdfdowI",
     authDomain: "animationcinema-74dc6.firebaseapp.com",
