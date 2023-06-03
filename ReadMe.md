@@ -1,0 +1,2 @@
+## About this App
+This is an open source video website application that supports video upload and sort. This app is using react, tailwind css, firebase and type script. This website is only used for react exercises, and the uploaded videos will not be used for any commercial purposes.
