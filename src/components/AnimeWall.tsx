@@ -10,7 +10,7 @@ interface AnimeWallProps {
 const AnimeWall = ({animeSeriesList, largeColumn, keyWord}: AnimeWallProps) => {
     return (
         <div
-            className={`grid grid-cols-3 gap-2 w-full lg:grid-cols-${largeColumn}`}
+            className={`grid grid-cols-3 gap-2 w-full ${largeColumn == 5 ? 'lg:grid-cols-5' : 'lg:grid-cols-4'}`}
         >
             {animeSeriesList.length > 0 && animeSeriesList.map((animeSeries, index) => (
                 <Link

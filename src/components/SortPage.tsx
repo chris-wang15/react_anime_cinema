@@ -39,11 +39,11 @@ const SortPage = () => {
 
     const selectableThemeList: Array<AnimeTheme | 'All'>
         = ['All', AnimeTheme.JUVENILE, AnimeTheme.FANTASY, AnimeTheme.ANCIENT, AnimeTheme.FIGHTING]
-    const selectableTimeList = ["All", "2011~2014", "2015~2023", "~2010"]
+    const selectableTimeList = ["All", "~2010", "2011~2014", "2015~2023"]
 
     return (
-        <div>
-            <div className="w-full bg-white rounded-lg p-2 flex flex-col justify-center">
+        <div className="min-h-screen">
+            <div className="w-full  bg-white rounded-lg p-2 flex flex-col justify-center">
                 <div className="text-3xl font-bold text-textColor justify-self-center">Anime</div>
                 {/* separator */}
                 <div className="w-full border-b border-gray-300 my-2 justify-self-center"/>

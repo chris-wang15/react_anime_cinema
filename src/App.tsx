@@ -17,7 +17,7 @@ function App() {
 
     return (
         <AnimatePresence>
-            <div className="w-screen h-auto flex flex-col bg-primary">
+            <div className="w-screen h-auto min-h-screen flex flex-col bg-primary">
                 <Header/>
 
                 <main className="h-full mt-20 px-16 py-4 w-full">
