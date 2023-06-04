@@ -1,29 +1,25 @@
 import LogoUri from "../assets/logo.jpeg"
 import {motion} from "framer-motion";
 import {Link} from "react-router-dom";
-import {getAuth, GoogleAuthProvider} from "firebase/auth";
-import {app} from "../firebase.config.tsx"
 import {BiVideoPlus} from "react-icons/bi";
 import {RxAvatar} from "react-icons/rx";
+import {useLoginContext} from "../context/MainContextHook.tsx";
+import {useState} from "react";
+import {FaUserCircle} from "react-icons/fa";
 
 const Header = () => {
     const menuItemTextClass
-        = "text-sm md:text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer"
+        = "text-sm md:text-base text-textColor duration-100 transition-all ease-in-out cursor-pointer"
 
-    const firebaseAuth = getAuth(app)
-    const provider = new GoogleAuthProvider()
-
-
-
-    const login = async () => {
-        // const {user : {refreshToken, providerData}} = await signInWithPopup(firebaseAuth, provider)
-        console.log(firebaseAuth)
-        console.log(provider)
-    }
+    const {user, login, logout, createUser} = useLoginContext()
 
     const showCollection = () => {
         // show personal collection
     }
+
+    const [loginPageShown, setLoginPageShown] = useState(false)
+    const [email, setEmail] = useState<string | null>(user?.mail ?? null)
+    const [password, setPassword] = useState<string | null>(user?.password ?? null)
 
     return (
         <header className="fixed z-50 w-screen p-3 px-4 bg-primary">
@@ -62,13 +58,85 @@ const Header = () => {
                     className="relative flex items-center justify-center">
                     <BiVideoPlus className="text-textColor text-2xl ml-2 md:ml-8"/>
                 </div>
-                <motion.div
-                    whileTap={{scale: 0.6}}
-                    onClick={login}
-                    className="w-7 md:w-10 h-7 md:h-10 ml-2 md:ml-8 drop-shadow-xl cursor-pointer"
-                >
-                    <RxAvatar className="w-full h-full"/>
-                </motion.div>
+                {/* User avatar */}
+                <div className="relative">
+                    <motion.div
+                        // whileTap doesn't register click events on the edges, not scale too small
+                        whileTap={{scale: 0.95}}
+                        onClick={() => setLoginPageShown(!loginPageShown)}
+                        className="w-7 md:w-10 h-7 md:h-10 ml-2 md:ml-8 drop-shadow-xl cursor-pointer"
+                    >
+                        {user ? <FaUserCircle className="w-full h-full"/> : <RxAvatar className="w-full h-full"/>}
+                    </motion.div>
+                    {loginPageShown && (
+                        <div className="w-64 bg-gray-100 shadow-xl rounded-lg flex flex-col absolute right-1">
+                            {!user ? (
+                                <div>
+                                    <p className="text-sm text-textColor ml-2">Email:</p>
+                                    <input
+                                        className="w-60 m-2"
+                                        type="email"
+                                        placeholder="Enter your email"
+                                        value={email ?? ""}
+                                        onChange={e => setEmail(e.target.value)}
+                                    />
+                                    <p className="text-sm text-textColor ml-2">Password:</p>
+                                    <input
+                                        className="w-60 m-2"
+                                        type="password"
+                                        placeholder="Enter your password"
+                                        value={password ?? ""}
+                                        onChange={e => setPassword(e.target.value)}
+                                    />
+                                    <button
+                                        type="button"
+                                        className="w-56 bg-gray-500 text-xl cursor-pointer m-4 rounded-full"
+                                        onClick={() => {
+                                            if (email && password) {
+                                                login({
+                                                    id: "",
+                                                    name: "",
+                                                    mail: email,
+                                                    password: password,
+                                                })
+                                            }
+                                            setLoginPageShown(false)
+                                        }}>
+                                        Login
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="w-56 bg-gray-500 text-xl cursor-pointer m-4 rounded-full"
+                                        onClick={() => {
+                                            if (email && password) {
+                                                createUser({
+                                                    id: "",
+                                                    name: "",
+                                                    mail: email,
+                                                    password: password,
+                                                })
+                                            }
+                                            setLoginPageShown(false)
+                                        }}>
+                                        Create An Account
+                                    </button>
+                                </div>
+                            ) : (
+                                <div >
+                                    <button
+                                        type="button"
+                                        className="w-56 bg-gray-500 text-xl cursor-pointer m-4 rounded-full"
+                                        onClick={() => {
+                                            logout()
+                                            setLoginPageShown(false)
+                                        }}>
+                                        Logout
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
 
             </div>
         </header>

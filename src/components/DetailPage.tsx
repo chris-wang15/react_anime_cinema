@@ -107,7 +107,7 @@ const DetailPage = () => {
                         drop-shadow-xl flex flex-col gap-3 items-center 
                         justify-center hover:bg-cartNumBg `}
                                 key={`episode-select-${index}`}
-                                whileTap={{scale: 0.75}}
+                                whileTap={{scale: 0.95}}
                                 onClick={() => setSelectedEpisode(animeItem)}
                     >
                         <p className={"text-sm group-hover:text-card "

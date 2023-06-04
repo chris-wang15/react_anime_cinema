@@ -3,11 +3,14 @@ import {initState, StateType} from "./StateType.tsx";
 import {User} from "./User.tsx";
 import {AnimeSeries} from "../utils/dataType.tsx";
 import {getAllAnimeSeries} from "../utils/firebaseFunctions.tsx";
+import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from "firebase/auth";
+import {app} from "../firebase.config.tsx";
 
 
 const enum REDUCER_ACTION_TYPE {
     LOGIN,
     LOGOUT,
+    CREATE_USER,
     UPDATE_ANIME,
 }
 
@@ -20,7 +23,12 @@ type ReducerAction = {
 const reducer = (state: StateType, action: ReducerAction): StateType => {
     switch (action.type) {
         case REDUCER_ACTION_TYPE.LOGIN:
-            // TODO firebase login, maybe await method
+            if (action.user === null) {
+                return state
+            }
+            return {...state, login: true, user: action.user}
+        case REDUCER_ACTION_TYPE.CREATE_USER:
+            // TODO update local storage
             if (action.user === null) {
                 return state
             }
@@ -37,13 +45,49 @@ const reducer = (state: StateType, action: ReducerAction): StateType => {
 const useMainContext = (initState: StateType) => {
     const [state, dispatch] = useReducer(reducer, initState)
 
-    const login = useCallback((user: User) => dispatch(
-        {
-            type: REDUCER_ACTION_TYPE.LOGIN,
-            user: user,
-            animeSeriesList: null,
-        }
-    ), [])
+    const login = useCallback(async (user: User) => {
+        const firebaseAuth = getAuth(app)
+        await signInWithEmailAndPassword(
+            firebaseAuth,
+            user.mail,
+            user.password
+        ).then(userCredential => {
+            console.log('login')
+            console.log(userCredential.user.refreshToken)
+            user.id = userCredential.user.uid
+            user.mail = userCredential.user.email ?? ""
+            user.name = userCredential.user.photoURL ?? ""
+            dispatch(
+                {
+                    type: REDUCER_ACTION_TYPE.LOGIN,
+                    user: user,
+                    animeSeriesList: null,
+                }
+            )
+        })
+
+    }, [])
+
+    const createUser = useCallback(async (user: User) => {
+        const firebaseAuth = getAuth(app)
+        await createUserWithEmailAndPassword(
+            firebaseAuth,
+            user.mail,
+            user.password
+            ).then(userCredential => {
+            console.log('createUser')
+            console.log(userCredential.user.refreshToken)
+            user.id = userCredential.user.uid
+            dispatch(
+                {
+                    type: REDUCER_ACTION_TYPE.LOGIN,
+                    user: user,
+                    animeSeriesList: null,
+                }
+            )
+        })
+
+    }, [])
 
     const logout = useCallback(() => dispatch(
         {
@@ -65,7 +109,7 @@ const useMainContext = (initState: StateType) => {
         })
     }, [])
 
-    return {state, login, logout, updateAnime}
+    return {state, login, logout, createUser, updateAnime}
 }
 
 type UseMainContextType = ReturnType<typeof useMainContext>
@@ -73,13 +117,19 @@ type UseMainContextType = ReturnType<typeof useMainContext>
 const initContextState: UseMainContextType = {
     state: initState,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    login: (_: User) => {
+    login: async (_: User) => {
         // login by firebase, see useMainContext for interface impl
     },
 
     logout: () => {
         // logout, see useMainContext for interface impl
     },
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    createUser: async (_: User) => {
+        // login by firebase, see useMainContext for interface impl
+    },
+
     updateAnime: async (): Promise<void> => {
         // fetch anime series list from firebase, see useMainContext for interface impl
     },

@@ -7,14 +7,8 @@ export type StateType = {
     animeSeriesList: AnimeSeries[];
 }
 
-// TODO Mock test
 export const initState: StateType = {
-    login: true,
-    user: {
-        id: "111",
-        name: "root",
-        password: "111",
-        mail: "root@gmail.com",
-    },
+    login: false,
+    user: null,
     animeSeriesList: [],
 }

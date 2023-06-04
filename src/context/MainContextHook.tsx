@@ -17,9 +17,10 @@ type UseMainContextHookType = {
     user: User | null,
     login: (user: User) => void,
     logout: () => void,
+    createUser: (user: User) => void,
 }
 
 export const useLoginContext = (): UseMainContextHookType => {
-    const {state: {user}, login, logout} = useContext(MainContext)
-    return {user, login, logout}
+    const {state: {user}, login, logout, createUser} = useContext(MainContext)
+    return {user, login, logout, createUser}
 }

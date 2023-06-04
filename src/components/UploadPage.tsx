@@ -9,11 +9,11 @@ import {LuSubtitles} from "react-icons/lu";
 import Loader from "./Loader.tsx";
 import {GrAdd} from "react-icons/gr";
 import {FiMinus, FiPlus} from "react-icons/fi";
-import {useAnimeUpdateContext} from "../context/MainContextHook.tsx";
+import {useAnimeUpdateContext, useLoginContext} from "../context/MainContextHook.tsx";
 
 const UploadPage = () => {
-    const hasLogin = true;
-    if (!hasLogin) {
+    const {user} = useLoginContext()
+    if (!user) {
         return <UnLoginDescription/>
     }
 
@@ -326,7 +326,7 @@ const UploadPanel = () => {
                     )}
                     {/* add new episode */}
                     <motion.div
-                        whileTap={{scale: 0.75}}
+                        whileTap={{scale: 0.95}}
                         onClick={() => {
                             const insertItem: AnimeItem = {
                                 id: animeList.length,
@@ -424,7 +424,7 @@ const UploadedFileContainer = ({animeSeries}: UploadedFileContainerProps) => {
                 </div>
 
                 <motion.div
-                    whileTap={{scale: 0.75}}
+                    whileTap={{scale: 0.95}}
                     onClick={() => {
                         setExpanded(!expanded)
                     }}

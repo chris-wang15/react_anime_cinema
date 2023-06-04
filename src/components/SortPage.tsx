@@ -56,7 +56,7 @@ const SortPage = () => {
                             w-24 min-w-[94px] h-8 cursor-pointer rounded-lg drop-shadow-xl flex flex-col items-center 
                             justify-center hover:bg-cartNumBg `}
                                         key={`theme-select-${index}`}
-                                        whileTap={{scale: 0.75}}
+                                        whileTap={{scale: 0.95}}
                                         onClick={() => setSelectedTheme(animeItem)}
                             >
                                 <p className={"text-sm group-hover:text-card "
@@ -76,7 +76,7 @@ const SortPage = () => {
                             w-24 min-w-[94px] h-8 cursor-pointer rounded-lg drop-shadow-xl flex flex-col items-center 
                             justify-center hover:bg-cartNumBg `}
                                         key={`theme-select-${index}`}
-                                        whileTap={{scale: 0.75}}
+                                        whileTap={{scale: 0.95}}
                                         onClick={() => setSelectedTime(animeTime)}
                             >
                                 <p className={"text-sm group-hover:text-card "
